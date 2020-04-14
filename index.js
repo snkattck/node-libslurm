@@ -198,14 +198,12 @@ var slurm_load_node = function(last_update, flags)
     const buf = ref.alloc(node_info_msg_t_ptr, null);
     const n = slurm.slurm_load_node(0, buf, 0);
     const t = ref.get(buf.deref(), 0, node_info_msg_t);
-    console.log(t);
+
     c = t.toObject();
-    console.log(c);
     p = c.node_array;
-
-    deref_array = (p.deref(), node_info_t.size, node_info_t);
-    console.log(deref_array);
-
+    z = ref.get(p, 0*node_info_t.size, node_info_t);
+    console.log(ref.readCString(z.node_hostname, 0));
+    console.log(ref.readCString(z.arch));
 }   
 
 
