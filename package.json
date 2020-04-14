@@ -1,0 +1,21 @@
+{
+  "name": "libslurm",
+  "version": "1.0.0",
+  "description": "Node SLURM Workload Manager library using native extension FFI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "slurm",
+    "wlm",
+    "jobs",
+    "batch",
+    "c"
+  ],
+  "author": "Evan Sarmiento",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "ffi-napi": "^2.4.7"
+  }
+}
