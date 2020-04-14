@@ -176,10 +176,12 @@ const node_info_t = StructType({
 //	node_info_t *node_array;	/* the node records */
 // } node_info_msg_t;
 
+const node_array_t = ref.refType(node_info_t);
+
 const node_info_msg_t = StructType({
     last_update: ref.types.long,
     record_count: ref.types.uint32,
-    node_array: arr(ref.refType(node_info_t))
+    node_array: node_array_t
 });
 
 const node_info_msg_t_ptr = ref.refType(node_info_msg_t);
@@ -193,12 +195,18 @@ var slurm = ffi.Library('libslurm', {
 
 var slurm_load_node = function(last_update, flags) 
 {
-    const buf = ref.alloc(node_info_msg_t);
+    const buf = ref.alloc(node_info_msg_t_ptr, null);
     const n = slurm.slurm_load_node(0, buf, 0);
-    console.log(buf.deref());
     const t = ref.get(buf.deref(), 0, node_info_msg_t);
-    console.log(n, t.toObject());
-}
+    console.log(t);
+    c = t.toObject();
+    console.log(c);
+    p = c.node_array;
+
+    deref_array = (p.deref(), node_info_t.size, node_info_t);
+    console.log(deref_array);
+
+}   
 
 
-module.exports = { slurm, slurm_load_node };
+module.exports = { slurm, slurm_load_node };    
