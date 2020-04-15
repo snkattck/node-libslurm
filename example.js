@@ -1,4 +1,4 @@
-const { slurm, slurm_load_node } = require("./index");
-console.log(slurm.slurm_api_version());
+const slurm = require('./src/interface/cslurm');
 
-slurm_load_node();
+console.log(slurm.api_version())
+slurm.load_node();
